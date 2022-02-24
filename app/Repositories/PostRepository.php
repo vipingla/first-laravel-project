@@ -17,7 +17,7 @@ class PostRepository implements PostRepositoryInterface
 	}
 
     public function getuserbyId($id){
-		return Userdata::where('id', $id)->firstOrFail();     
+		return Userdata::where('id', $id)->first();     
 	}
 
 	// more 
