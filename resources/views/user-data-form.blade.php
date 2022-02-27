@@ -70,7 +70,20 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
               </div>  
-
+              <div class="form-group">
+                <label for="exampleInputEmail1">Experience</label>
+                <select id="experience" name="experience" class="form-control">
+                  <option value="">Select</option>
+                  <option value="1">One Year</option>
+                <option value="2">Two Year</option>
+                <option value="3">Three Year</option>
+                <option value="4">Four Year</option>
+                <option value="5">Five Year</option>
+                </select>
+                @error('experience')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+              </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
@@ -88,6 +101,7 @@
                   <th>Name</th>
                   <th>Skills</th>
                   <th>Expertise</th>
+                  <th>Experience</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -105,6 +119,13 @@
                     @endif
                   </td>
                   <td>{{ucfirst($item->expertise)}}</td>
+                  <td>
+                    @if($item->experience)
+                    {{$item->experience}}
+                    @else
+                    No Data found
+                    @endif
+                  </td>
                   <td>
                     <a href="javascript:void(0)" id="edit-user" data-id="{{ $userID }}" class="btn btn-primary">
                       <i class="fa fa-edit"></i>
@@ -174,7 +195,18 @@
               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
               @enderror
             </div>  
-
+            <div class="form-group">
+              <label for="exampleInputEmail1">Experience</label>
+              <select id="experience" name="experience" class="form-control">
+                <option value="">Select</option>
+                <option value="1" @if($item->experience == 1) selected @endif>One Year</option>
+              <option value="2" @if($item->experience == 2) selected @endif>Two Year</option>
+              <option value="3">Three Year</option>
+              <option value="4">Four Year</option>
+              <option value="5">Five Year</option>
+              </select>
+              <div class="alert alert-danger mt-1 mb-1 d-none" id="experienceError"></div>
+            </div>
             <button type="button" class="btn btn-primary" onclick="return updateuser();">Submit</button>
           </form>        
         </div>
@@ -195,6 +227,7 @@ $(document).ready(function () {
     $('body').on('click', '#edit-user', function () {
       $('#nameError').addClass('d-none');
       $('#skillsError').addClass('d-none');
+      $('#experienceError').addClass('d-none');
       var user_id = $(this).data('id');
       $.get('ajax-crud/' + user_id +'/edit', function (data) {
          $('#userShowModal').html("Update User Data");
@@ -203,6 +236,7 @@ $(document).ready(function () {
           $('#editname').val(data.name);
           $('#oldUserName').val(data.name);
           $('#skills').val(data.skills);
+          $('#experience').val(data.experience);
           if(data.expertise == 'php')
             $("#expertise_php").prop("checked", true);
           else if(data.expertise == 'python')  
@@ -256,6 +290,11 @@ function updateuser()
           $('#skillsError').removeClass('d-none');
           $('#skillsError').text(myObj.skills);
           //$('#nameError').addClass('d-none');
+        }
+        else if(myObj.hasOwnProperty('experience'))
+        {
+          $('#experienceError').removeClass('d-none');
+          $('#experienceError').text(myObj.experience);          
         }
       }
     });

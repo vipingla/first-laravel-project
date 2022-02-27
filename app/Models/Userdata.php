@@ -11,6 +11,7 @@ class Userdata extends Model
     public $fillable = [
         'name',
         'skills',
-        'expertise'
+        'expertise',
+        'experience'
     ];
 }

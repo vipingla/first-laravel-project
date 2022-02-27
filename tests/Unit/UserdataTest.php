@@ -10,6 +10,7 @@ use Illuminate\Support\str;
 use App\Models\Userdata;
 use Illuminate\Support\Facades\Crypt;
 use Faker\Factory as Faker;
+use App\Repositories\PostRepositoryInterface;
 
 class UserdataTest extends TestCase
 {
@@ -52,12 +53,14 @@ class UserdataTest extends TestCase
      */
     public function test_delete_user()
     {
-		$postobj = new PostController();
+		//$postobj = new PostController();
         $user = Userdata::first();
         if($user)
             $userID = Crypt::encrypt($user->id);
-            $postobj->deleteUser($userID);//$user->delete();          
-
-        $this->assertTrue(true);
+            //$user->delete();          //$postobj->deleteUser($userID);//
+            $response = $this->call('GET','ajax-crud/'.$userID.'/delete',[]);
+            //dd($response);
+            //$this->assertTrue(true);
+            $response->assertStatus($response->status(),200);
     }
 }

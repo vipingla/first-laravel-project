@@ -26,11 +26,13 @@ class UserdatasSeeder extends Seeder
 
         $faker = Faker::create();
         $arrayValues = ['php', 'python', 'java'];
+        $arrayexp = [1,2,3,4,5];
     	foreach (range(1,12) as $index) {
             DB::table('userdatas')->insert([
                 'name' => $faker->name,
                 'skills' => $faker->text,
-                'expertise'=>$arrayValues[rand(0,2)]
+                'expertise'=>$arrayValues[rand(0,2)],
+                'experience'=>$arrayexp[rand(0,2)]
             ]);
         }
     }

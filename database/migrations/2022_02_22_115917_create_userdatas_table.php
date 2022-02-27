@@ -18,6 +18,7 @@ class CreateUserdatasTable extends Migration
             $table->string('name');
             $table->text('skills');
             $table->enum('expertise', ['php', 'python', 'java']);
+            $table->enum('experience', ['1','2','3','4','5']);
             $table->timestamps();
         });
     }

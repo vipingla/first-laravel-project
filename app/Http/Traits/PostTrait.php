@@ -68,12 +68,14 @@ trait PostTrait {
             'name' => 'required|unique:userdatas',
             'skills' => 'required',
             'expertise' => 'required',
+            'experience' => 'required',
         ]);
         
         $post = new Userdata;
         $post->name = $this->clean($request->name);
         $post->skills = $this->clean($request->skills);
         $post->expertise = $request->expertise;
+        $post->experience = $request->experience;
         try {
             $post->save();
             return redirect('user-data-form')->with('status', 'User Data Has Been inserted');
@@ -97,6 +99,7 @@ trait PostTrait {
                 'name' => 'required|unique:userdatas',
                 'skills' => 'required',
                 'expertise' => 'required',
+                'experience' => 'required',
             ]);
         }
         else
@@ -105,6 +108,8 @@ trait PostTrait {
                 'name' => 'required',
                 'skills' => 'required',
                 'expertise' => 'required',
+                'experience' => 'required',
+                
             ]);    
         }
         
@@ -114,6 +119,7 @@ trait PostTrait {
         $post->name = $this->clean($request->name);
         $post->skills = $this->clean($request->skills);
         $post->expertise = $request->expertise;
+        $post->experience = $request->experience;
         try {
             $post->save();
             //return redirect('user-data-form')->with('status', 'User Data Has Been inserted');
@@ -128,7 +134,7 @@ trait PostTrait {
             return response()->json([
                 'status' => false,
                 'code' => 401,
-                'message' => 'User data updated succesfully.',
+                'message' => 'Something went wrong.',
                 'oldData' => $request->all()
             ]);
         }
