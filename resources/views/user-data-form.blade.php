@@ -72,7 +72,7 @@
               </div>  
               <div class="form-group">
                 <label for="exampleInputEmail1">Experience</label>
-                <select id="experience" name="experience" class="form-control">
+                <select id="experienced" name="experience" class="form-control">
                   <option value="">Select</option>
                   <option value="1">One Year</option>
                 <option value="2">Two Year</option>
@@ -143,7 +143,9 @@
                 @endif
               </tbody>
             </table>
+            @if(count($data) > 0)
             {{$data->links()}}
+            @endif
           </div>
         </div>  
       </div>      
@@ -199,8 +201,8 @@
               <label for="exampleInputEmail1">Experience</label>
               <select id="experience" name="experience" class="form-control">
                 <option value="">Select</option>
-                <option value="1" @if($item->experience == 1) selected @endif>One Year</option>
-              <option value="2" @if($item->experience == 2) selected @endif>Two Year</option>
+                <option value="1">One Year</option>
+              <option value="2">Two Year</option>
               <option value="3">Three Year</option>
               <option value="4">Four Year</option>
               <option value="5">Five Year</option>
@@ -243,6 +245,9 @@ $(document).ready(function () {
             $("#expertise_python").prop("checked", true);
           else
             $("#expertise_java").prop("checked", true);
+            
+          $('#experience  option[value="'+data.experience+'"]').prop('selected', true)
+          
       })
    });
    /* When click edit user */

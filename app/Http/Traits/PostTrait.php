@@ -28,7 +28,15 @@ trait PostTrait {
 	 */
 	public function index(){
 		$data = $this->repository->getAll();
-		return view('user-data-form')->with('data', $data);
+        if($data->count() > 0)
+        {
+            return view('user-data-form')->with('data', $data);
+        }
+        else
+        {
+            return view('user-data-form')->with('data', []);
+        }
+		
 	}
 
 	/**
